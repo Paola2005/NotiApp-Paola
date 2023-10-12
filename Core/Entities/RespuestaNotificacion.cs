@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class RespuestaNotificacion
+    public class RespuestaNotificacion:BaseEntity
     {
-        
+        public string NombreTipo { get; set; }
     }
 }

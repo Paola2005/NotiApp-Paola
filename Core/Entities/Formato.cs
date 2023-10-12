@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Radicados
+    public class Formato:BaseEntity
     {
-        
+        public string NombreFormato { get; set; }
     }
 }
