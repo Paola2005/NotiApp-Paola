@@ -1,0 +1,15 @@
+C:\Users\velas\NotiApp-Paola\Infrastructura\bin\Debug\net7.0\Infrastructura.deps.json
+C:\Users\velas\NotiApp-Paola\Infrastructura\bin\Debug\net7.0\Infrastructura.dll
+C:\Users\velas\NotiApp-Paola\Infrastructura\bin\Debug\net7.0\Infrastructura.pdb
+C:\Users\velas\NotiApp-Paola\Infrastructura\bin\Debug\net7.0\Core.dll
+C:\Users\velas\NotiApp-Paola\Infrastructura\bin\Debug\net7.0\Core.pdb
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.csproj.AssemblyReference.cache
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.AssemblyInfoInputs.cache
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.AssemblyInfo.cs
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.csproj.CoreCompileInputs.cache
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.csproj.CopyComplete
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.dll
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\refint\Infrastructura.dll
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\Infrastructura.pdb
+C:\Users\velas\NotiApp-Paola\Infrastructura\obj\Debug\net7.0\ref\Infrastructura.dll
