@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Radicado:BaseEntity
+    public class SubModulos:BaseEntity
     {
-        public ICollection<ModuloNotificacion> ModulosNotificaciones{get; set;}
+        public string NombreSubModulo { get; set; }
     }
 }
