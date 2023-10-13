@@ -8,6 +8,7 @@ namespace Core.Entities
     public class ModuloNotificacion:BaseEntity
     {
         public string AsuntoNotificacion { get; set; }
+        
         public int IdTipoNotificacion { get; set; }
         public TipoNotificacion TiposNotificaciones{get; set;}
         public int IdRadicado { get; set; }
