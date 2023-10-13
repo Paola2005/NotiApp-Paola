@@ -23,7 +23,12 @@ namespace API.Profiles
             CreateMap<PermisosGenericos, PermisosGenericosDto>().ReverseMap();
             CreateMap<Radicado, RadicadoDto>().ReverseMap();
             CreateMap<RespuestaNotificacion, RespuestaNotificacionDto>().ReverseMap();
-            
+            CreateMap<Rol, RolDto>().ReverseMap();
+            CreateMap<RolvsMaestro, RolvsMaestrosDto>().ReverseMap();
+            CreateMap<SubModulos, SubModulosDto>().ReverseMap();
+            CreateMap<TipoNotificacion, TipoNotificacionDto>().ReverseMap();
+            CreateMap<TipoRequerimiento, TipoRequerimientoDto>().ReverseMap();
+
         }
 
     }
