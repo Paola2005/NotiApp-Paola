@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PSKJgmNrs52/8V7tBC9aCo4wNawDCv8BUia82cHHZUtjKRyYea9KmFhY7q/h/fGrJmonZ8YsrRtyuKNZ2Qdg6A==",
+  "dgSpecHash": "oM0DnGTRbOKLVx1aN11JAIWzj1GbJFEReYThzQcjIJtViBAkQeIs1wmOkms+L5AGS2QC8+X6bZc/SDfFZpFUXQ==",
   "success": true,
-  "projectFilePath": "/workspaces/NotiApp-Paola/Core/Core.csproj",
+  "projectFilePath": "C:\\Users\\APM02-44\\NotiApp-Paola\\Core\\Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

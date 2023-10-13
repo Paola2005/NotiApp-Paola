@@ -13,5 +13,6 @@ namespace Core.Entities
         public MaestrosvSubModulos MaestrosvSubsModulos{get; set;}
         public int IdRol { get; set; }
         public Rol Roles{get; set;}
+        
     }
 }

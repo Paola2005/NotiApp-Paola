@@ -25,7 +25,7 @@ namespace Infrastructura.Data.Configuration
             .HasForeignKey(p=>p.IdRol);
 
             builder.HasOne(m=>m.MaestrosvSubsModulos)
-            .WithMany(m=>m.GenericossvSubsModulos)
+            .WithMany(m=>m.GenericosvSubsModulos)
             .HasForeignKey(m=>m.IdSubModulos);
 
             

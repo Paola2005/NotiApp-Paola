@@ -35,20 +35,18 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreUsuario")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Auditorias");
+                    b.ToTable("Auditoria", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.BlockChain", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuditoriasId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaCreacion")
@@ -58,7 +56,8 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("HashGenerado")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("IdAuditoria")
                         .HasColumnType("int");
@@ -69,21 +68,15 @@ namespace Infrastructura.Data.Migrations
                     b.Property<int>("IdNotificacion")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RespuestasNotificacionesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TiposNotificacionesId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AuditoriasId");
+                    b.HasIndex("IdAuditoria");
 
-                    b.HasIndex("RespuestasNotificacionesId");
+                    b.HasIndex("IdHiloRespuesta");
 
-                    b.HasIndex("TiposNotificacionesId");
+                    b.HasIndex("IdNotificacion");
 
-                    b.ToTable("BlockChains");
+                    b.ToTable("BlockChain", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.EstadoNotificacion", b =>
@@ -99,11 +92,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreEstado")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EstadosNotificaciones");
+                    b.ToTable("EstadoNotificacion", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Formato", b =>
@@ -119,11 +113,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreFormato")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Formatos");
+                    b.ToTable("Formato", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.GenericosvsSubModulos", b =>
@@ -147,24 +142,15 @@ namespace Infrastructura.Data.Migrations
                     b.Property<int>("IdSubModulos")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaestrosvSubsModulosId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PermisoGenericoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RolesId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MaestrosvSubsModulosId");
+                    b.HasIndex("IdGenericos");
 
-                    b.HasIndex("PermisoGenericoId");
+                    b.HasIndex("IdRol");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("IdSubModulos");
 
-                    b.ToTable("GenericossvSubsModulos");
+                    b.ToTable("GenericosVSSubModulos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.MaestrosvSubModulos", b =>
@@ -185,19 +171,13 @@ namespace Infrastructura.Data.Migrations
                     b.Property<int>("IdSubModulo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModuloMaestrosId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubsModulosId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ModuloMaestrosId");
+                    b.HasIndex("IdMaestro");
 
-                    b.HasIndex("SubsModulosId");
+                    b.HasIndex("IdSubModulo");
 
-                    b.ToTable("MaestrosvSubsModulos");
+                    b.ToTable("MaestrosvSubModulos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.ModuloNotificacion", b =>
@@ -207,19 +187,14 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AsuntoNotificacion")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("EstadosNotificacionesId")
-                        .HasColumnType("int");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("FormatosId")
-                        .HasColumnType("int");
 
                     b.Property<int>("IdEstadoNotificacion")
                         .HasColumnType("int");
@@ -239,36 +214,25 @@ namespace Infrastructura.Data.Migrations
                     b.Property<int>("IdTipoNotificacion")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RadicadosId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RespuestasNotificacionesId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TextoNotificacion")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("TiposNotificacionesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TiposRequerimientosId")
-                        .HasColumnType("int");
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstadosNotificacionesId");
+                    b.HasIndex("IdEstadoNotificacion");
 
-                    b.HasIndex("FormatosId");
+                    b.HasIndex("IdFromato");
 
-                    b.HasIndex("RadicadosId");
+                    b.HasIndex("IdHiloRespuesta");
 
-                    b.HasIndex("RespuestasNotificacionesId");
+                    b.HasIndex("IdRadicado");
 
-                    b.HasIndex("TiposNotificacionesId");
+                    b.HasIndex("IdRequerimiento");
 
-                    b.HasIndex("TiposRequerimientosId");
+                    b.HasIndex("IdTipoNotificacion");
 
-                    b.ToTable("ModulosNotificaciones");
+                    b.ToTable("ModuloNotificacion", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.ModulosMaestros", b =>
@@ -283,12 +247,16 @@ namespace Infrastructura.Data.Migrations
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("NombreModulo")
+                    b.Property<string>("MaestrosvSubModulos")
                         .HasColumnType("longtext");
+
+                    b.Property<string>("NombreModulo")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ModuloMaestros");
+                    b.ToTable("ModulosMaestros", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.PermisosGenericos", b =>
@@ -304,11 +272,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombrePermiso")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PermisoGenerico");
+                    b.ToTable("PermisosGenericos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Radicado", b =>
@@ -325,7 +294,7 @@ namespace Infrastructura.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Radicados");
+                    b.ToTable("Radicado", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.RespuestaNotificacion", b =>
@@ -341,11 +310,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreTipo")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("RespuestasNotificaciones");
+                    b.ToTable("RespuestaNotificacion", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Rol", b =>
@@ -361,11 +331,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Rol", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.RolvsMaestro", b =>
@@ -386,19 +357,13 @@ namespace Infrastructura.Data.Migrations
                     b.Property<int>("IdRol")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModuloMaestrosId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RolesId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ModuloMaestrosId");
+                    b.HasIndex("IdMaestro");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("IdRol");
 
-                    b.ToTable("RolsvsMaestros");
+                    b.ToTable("RolvsMaestro", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.SubModulos", b =>
@@ -414,11 +379,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreSubModulo")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubsModulos");
+                    b.ToTable("SubModulos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.TipoNotificacion", b =>
@@ -434,11 +400,12 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreTipo")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TiposNotificaciones");
+                    b.ToTable("TipoNotificacion", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.TipoRequerimiento", b =>
@@ -454,26 +421,33 @@ namespace Infrastructura.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NombreRequerimiento")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TiposRequerimientos");
+                    b.ToTable("TipoRequerimiento", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.BlockChain", b =>
                 {
                     b.HasOne("Core.Entities.Auditoria", "Auditorias")
                         .WithMany("BlockChains")
-                        .HasForeignKey("AuditoriasId");
+                        .HasForeignKey("IdAuditoria")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.RespuestaNotificacion", "RespuestasNotificaciones")
                         .WithMany("BlockChains")
-                        .HasForeignKey("RespuestasNotificacionesId");
+                        .HasForeignKey("IdHiloRespuesta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.TipoNotificacion", "TiposNotificaciones")
                         .WithMany("BlockChains")
-                        .HasForeignKey("TiposNotificacionesId");
+                        .HasForeignKey("IdNotificacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Auditorias");
 
@@ -484,17 +458,23 @@ namespace Infrastructura.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.GenericosvsSubModulos", b =>
                 {
-                    b.HasOne("Core.Entities.MaestrosvSubModulos", "MaestrosvSubsModulos")
-                        .WithMany("GenericossvSubsModulos")
-                        .HasForeignKey("MaestrosvSubsModulosId");
-
                     b.HasOne("Core.Entities.PermisosGenericos", "PermisoGenerico")
                         .WithMany("GenericossvSubsModulos")
-                        .HasForeignKey("PermisoGenericoId");
+                        .HasForeignKey("IdGenericos")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.Rol", "Roles")
                         .WithMany("GenericossvSubsModulos")
-                        .HasForeignKey("RolesId");
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.MaestrosvSubModulos", "MaestrosvSubsModulos")
+                        .WithMany("GenericosvSubsModulos")
+                        .HasForeignKey("IdSubModulos")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MaestrosvSubsModulos");
 
@@ -506,12 +486,16 @@ namespace Infrastructura.Data.Migrations
             modelBuilder.Entity("Core.Entities.MaestrosvSubModulos", b =>
                 {
                     b.HasOne("Core.Entities.ModulosMaestros", "ModuloMaestros")
-                        .WithMany()
-                        .HasForeignKey("ModuloMaestrosId");
+                        .WithMany("MaestrosvSubsModulos")
+                        .HasForeignKey("IdMaestro")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.SubModulos", "SubsModulos")
-                        .WithMany()
-                        .HasForeignKey("SubsModulosId");
+                        .WithMany("MaestrosvSubsModulos")
+                        .HasForeignKey("IdSubModulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ModuloMaestros");
 
@@ -522,27 +506,39 @@ namespace Infrastructura.Data.Migrations
                 {
                     b.HasOne("Core.Entities.EstadoNotificacion", "EstadosNotificaciones")
                         .WithMany("ModulosNotificaciones")
-                        .HasForeignKey("EstadosNotificacionesId");
+                        .HasForeignKey("IdEstadoNotificacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.Formato", "Formatos")
                         .WithMany("ModulosNotificaciones")
-                        .HasForeignKey("FormatosId");
-
-                    b.HasOne("Core.Entities.Radicado", "Radicados")
-                        .WithMany("ModulosNotificaciones")
-                        .HasForeignKey("RadicadosId");
+                        .HasForeignKey("IdFromato")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.RespuestaNotificacion", "RespuestasNotificaciones")
                         .WithMany("ModulosNotificaciones")
-                        .HasForeignKey("RespuestasNotificacionesId");
+                        .HasForeignKey("IdHiloRespuesta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Core.Entities.TipoNotificacion", "TiposNotificaciones")
+                    b.HasOne("Core.Entities.Radicado", "Radicados")
                         .WithMany("ModulosNotificaciones")
-                        .HasForeignKey("TiposNotificacionesId");
+                        .HasForeignKey("IdRadicado")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.TipoRequerimiento", "TiposRequerimientos")
                         .WithMany("ModulosNotificaciones")
-                        .HasForeignKey("TiposRequerimientosId");
+                        .HasForeignKey("IdRequerimiento")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.TipoNotificacion", "TiposNotificaciones")
+                        .WithMany("ModulosNotificaciones")
+                        .HasForeignKey("IdTipoNotificacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EstadosNotificaciones");
 
@@ -561,11 +557,15 @@ namespace Infrastructura.Data.Migrations
                 {
                     b.HasOne("Core.Entities.ModulosMaestros", "ModuloMaestros")
                         .WithMany("RolsvsMaestros")
-                        .HasForeignKey("ModuloMaestrosId");
+                        .HasForeignKey("IdMaestro")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.Rol", "Roles")
                         .WithMany("RolsvsMaestros")
-                        .HasForeignKey("RolesId");
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ModuloMaestros");
 
@@ -589,11 +589,13 @@ namespace Infrastructura.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.MaestrosvSubModulos", b =>
                 {
-                    b.Navigation("GenericossvSubsModulos");
+                    b.Navigation("GenericosvSubsModulos");
                 });
 
             modelBuilder.Entity("Core.Entities.ModulosMaestros", b =>
                 {
+                    b.Navigation("MaestrosvSubsModulos");
+
                     b.Navigation("RolsvsMaestros");
                 });
 
@@ -619,6 +621,11 @@ namespace Infrastructura.Data.Migrations
                     b.Navigation("GenericossvSubsModulos");
 
                     b.Navigation("RolsvsMaestros");
+                });
+
+            modelBuilder.Entity("Core.Entities.SubModulos", b =>
+                {
+                    b.Navigation("MaestrosvSubsModulos");
                 });
 
             modelBuilder.Entity("Core.Entities.TipoNotificacion", b =>

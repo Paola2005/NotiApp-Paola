@@ -1,5 +1,6 @@
 using AspNetCoreRateLimit;
 using Core.Interfaces;
+using Infrastructura.UnitOfWork;
 
 
 namespace API.Extension;
@@ -14,10 +15,10 @@ public static class ApplicationServiceExtensions
         .AllowAnyMethod()
         .AllowAnyHeader());
     });
-    /* public static void AddApplicationServices(this IServiceCollection services)
+    public static void AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-    } */
+    } 
     public static void ConfigureRatelimiting(this IServiceCollection services)
     {
         services.AddMemoryCache();

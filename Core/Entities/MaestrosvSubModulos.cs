@@ -11,6 +11,6 @@ namespace Core.Entities
         public ModulosMaestros ModuloMaestros{get; set;}
         public int IdSubModulo { get; set; }
         public SubModulos SubsModulos{get; set;}
-        public ICollection<GenericosvsSubModulos>GenericossvSubsModulos{get; set;}
+        public ICollection<GenericosvsSubModulos>GenericosvSubsModulos{get; set;}
     }
 }

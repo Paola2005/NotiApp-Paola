@@ -9,7 +9,7 @@ namespace Core.Entities
     {
         public string NombreModulo { get; set; }
         public ICollection<RolvsMaestro> RolsvsMaestros{get;set;}
-        public object MaestrosvSubModulos { get; set; }
+        public string MaestrosvSubModulos { get; set; }
         public ICollection<MaestrosvSubModulos>MaestrosvSubsModulos{get; set;}
     }
 }
