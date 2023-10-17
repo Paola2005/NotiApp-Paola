@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\velas\\.nuget\\packages\\": {}
+    "C:\\Users\\campus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\velas\\NotiApp-Paola\\Core\\Core.csproj",
+      "projectUniqueName": "C:\\Users\\campus\\NotiApp-Paola\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "C:\\Users\\velas\\NotiApp-Paola\\Core\\Core.csproj",
-      "packagesPath": "C:\\Users\\velas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\velas\\NotiApp-Paola\\Core\\obj\\",
+      "projectPath": "C:\\Users\\campus\\NotiApp-Paola\\Core\\Core.csproj",
+      "packagesPath": "C:\\Users\\campus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\campus\\NotiApp-Paola\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\velas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\campus\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

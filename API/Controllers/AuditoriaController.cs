@@ -47,7 +47,7 @@ namespace API.Controllers
         public async Task<ActionResult<Auditoria>> Post(AuditoriaDto auditoriaDto)
         {
             var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
-            this._unitOfWork.Auditorias.Add(auditoria);
+            _unitOfWork.Auditorias.Add(auditoria);
             await _unitOfWork.SaveAsync();
             if (auditoria == null)
             {

@@ -47,7 +47,7 @@ namespace API.Controllers
         public async Task<ActionResult<BlockChain>> Post(BlockChainDto blockChainDto)
         {
             var blockChain = _mapper.Map<BlockChain>(blockChainDto);
-            this._unitOfWork.BlockChains.Add(blockChain);
+            _unitOfWork.BlockChains.Add(blockChain);
             await _unitOfWork.SaveAsync();
             if (blockChain == null)
             {
