@@ -42,10 +42,6 @@ namespace Infrastructure.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public virtual async Task<T> GetByIdAsync(string id)
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
 
         public virtual void Remove(T entity)
         {

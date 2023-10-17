@@ -6,8 +6,7 @@ using Core.Entities;
 
 namespace Core.Interfaces
 {
-    public interface IGenericossvSubModulos:IGenericRepository<GenericosvsSubModulos>
+    public interface IGenericossvSubModulos : IGenericRepository<GenericosvsSubModulos>
     {
-        
     }
 }

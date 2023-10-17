@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.ConfigureRatelimiting();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.ConfigureCore();
-/* builder.Services.AddApplicationServices(); */
+builder.Services.AddApplicationServices(); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

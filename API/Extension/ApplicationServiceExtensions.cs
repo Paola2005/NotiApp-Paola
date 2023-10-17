@@ -35,7 +35,7 @@ public static class ApplicationServiceExtensions
                     new RateLimitRule{
                         Endpoint="*",
                         Period="10s",
-                        Limit=2
+                        Limit=10
                     }
             };
         });

@@ -58,9 +58,17 @@ namespace API.Controllers
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<FormatoDto>>Put(int id)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<FormatoDto>> Put(int id, [FromBody] FormatoDto formatoDto)
+        {
+            if (formatoDto == null)
+                return NotFound();
+            var formatos = _mapper.Map<Formato>(formatoDto);
+            _unitOfWork.Formatos.Update(formatos);
+            await _unitOfWork.SaveAsync();
+            return formatoDto;
+        }
 
     }
 }
