@@ -13,13 +13,18 @@ namespace Infrastructura.Data.Configuration
         public void Configure(EntityTypeBuilder<Formato> builder)
         {
             builder.ToTable("Formato");
-            builder.HasKey(y=>y.Id);
-            builder.Property(E=>E.Id);
+            builder.HasKey(y => y.Id);
+            builder.Property(E => E.Id);
 
-            builder.Property(u=>u.NombreFormato)
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
+            builder.Property(u => u.NombreFormato)
             .HasMaxLength(50);
 
-            
+
         }
     }
 }

@@ -12,6 +12,6 @@ namespace API.Dtos
         public int DescAccion { get; set; }
         public DateTime FechaCreacion{get; set;}  
         public DateTime FechaModificacion { get; set; }   
-        public List<BlockChainDto> BlockChains{get; set;}
+        
     }
 }

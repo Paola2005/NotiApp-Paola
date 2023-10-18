@@ -14,22 +14,28 @@ namespace Infrastructura.Data.Configuration
         public void Configure(EntityTypeBuilder<BlockChain> builder)
         {
             builder.ToTable("BlockChain");
-            builder.HasKey(p=>p.Id);
-            builder.Property(p=>p.Id);
-    
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id);
+
             builder.HasOne(p => p.Auditorias)
             .WithMany(p => p.BlockChains)
             .HasForeignKey(p => p.IdAuditoria);
 
-            builder.HasOne(z=>z.TiposNotificaciones)
-            .WithMany(z=>z.BlockChains)
-            .HasForeignKey(z=>z.IdNotificacion);
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
 
-            builder.HasOne(u=>u.RespuestasNotificaciones)
-            .WithMany(u=>u.BlockChains)
-            .HasForeignKey(u=>u.IdHiloRespuesta);
+            builder.HasOne(z => z.TiposNotificaciones)
+            .WithMany(z => z.BlockChains)
+            .HasForeignKey(z => z.IdNotificacion);
 
-            builder.Property(j=>j.HashGenerado)
+            builder.HasOne(u => u.RespuestasNotificaciones)
+            .WithMany(u => u.BlockChains)
+            .HasForeignKey(u => u.IdHiloRespuesta);
+
+            builder.Property(j => j.HashGenerado)
+            .IsRequired()
             .HasMaxLength(100);
 
         }

@@ -13,13 +13,18 @@ public class AuditoriaConfiguration : IEntityTypeConfiguration<Auditoria>
     public void Configure(EntityTypeBuilder<Auditoria> builder)
     {
         builder.ToTable("Auditoria");
-        builder.HasKey(e=>e.Id);
-        builder.Property(e=>e.Id);
+        builder.HasKey(e => e.Id);
+        builder.Property(e => e.Id);
 
-        builder.Property(p=>p.NombreUsuario)
+        builder.Property(p => p.NombreUsuario)
         .HasMaxLength(100);
 
-        builder.Property(j=>j.DescAccion)
+        builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+        builder.Property(w => w.FechaModificacion)
+        .HasColumnType("DateTime");
+
+        builder.Property(j => j.DescAccion)
         .HasColumnType("int");
 
     }

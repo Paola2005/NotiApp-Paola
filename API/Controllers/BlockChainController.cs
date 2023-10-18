@@ -47,6 +47,10 @@ namespace API.Controllers
         public async Task<ActionResult<BlockChain>> Post(BlockChainDto blockChainDto)
         {
             var blockChain = _mapper.Map<BlockChain>(blockChainDto);
+            if (blockChain.FechaCreacion == DateTime.MinValue)
+            {
+                blockChain.FechaCreacion = DateTime.Now;
+            }
             _unitOfWork.BlockChains.Add(blockChain);
             await _unitOfWork.SaveAsync();
             if (blockChain == null)
@@ -65,6 +69,10 @@ namespace API.Controllers
             if (blockChainDtoDto == null)
                 return NotFound();
             var blockChain = _mapper.Map<BlockChain>(blockChainDtoDto);
+            if (blockChain.FechaModificacion == DateTime.MinValue)
+            {
+                blockChain.FechaModificacion = DateTime.Now;
+            }
             _unitOfWork.BlockChains.Update(blockChain);
             await _unitOfWork.SaveAsync();
             return blockChainDtoDto;

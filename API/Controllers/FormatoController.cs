@@ -47,6 +47,10 @@ namespace API.Controllers
         public async Task<ActionResult<FormatoDto>> Post(FormatoDto formatoDto)
         {
             var formatos = _mapper.Map<Formato>(formatoDto);
+            if (formatos.FechaCreacion == DateTime.MinValue)
+            {
+                formatos.FechaCreacion = DateTime.Now;
+            }
             _unitOfWork.Formatos.Add(formatos);
             await _unitOfWork.SaveAsync();
             if (formatos == null)
@@ -65,9 +69,27 @@ namespace API.Controllers
             if (formatoDto == null)
                 return NotFound();
             var formatos = _mapper.Map<Formato>(formatoDto);
+            if (formatos.FechaModificacion == DateTime.MinValue)
+            {
+                formatos.FechaModificacion = DateTime.Now;
+            }
             _unitOfWork.Formatos.Update(formatos);
             await _unitOfWork.SaveAsync();
             return formatoDto;
+        }
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var formatos = await _unitOfWork.Formatos.GetByIdAsync(id);
+            if (formatos == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.Formatos.Remove(formatos);
+            await _unitOfWork.SaveAsync();
+            return NoContent();
         }
 
     }

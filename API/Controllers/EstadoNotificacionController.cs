@@ -47,6 +47,10 @@ namespace API.Controllers
         public async Task<ActionResult<EstadoNotificacion>> Post(EstadoNotificacionDto estadoNotificacionDto)
         {
             var estadoNotificacion = _mapper.Map<EstadoNotificacion>(estadoNotificacionDto);
+            if (estadoNotificacion.FechaCreacion == DateTime.MinValue)
+            {
+                estadoNotificacion.FechaCreacion = DateTime.Now;
+            }
             _unitOfWork.EstadosNotificaciones.Add(estadoNotificacion);
             await _unitOfWork.SaveAsync();
             if (estadoNotificacion == null)
@@ -65,6 +69,10 @@ namespace API.Controllers
             if (estadoNotificacionDto == null)
                 return NotFound();
             var estadoNotificacion = _mapper.Map<EstadoNotificacion>(estadoNotificacionDto);
+            if (estadoNotificacion.FechaModificacion == DateTime.MinValue)
+            {
+                estadoNotificacion.FechaModificacion = DateTime.Now;
+            }
             _unitOfWork.EstadosNotificaciones.Update(estadoNotificacion);
             await _unitOfWork.SaveAsync();
             return estadoNotificacionDto;

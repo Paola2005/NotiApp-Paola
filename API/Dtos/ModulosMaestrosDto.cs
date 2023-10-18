@@ -12,7 +12,6 @@ namespace API.Dtos
         public string MaestrosvSubModulos { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
-        public List<RolvsMaestrosDto> RolsvsMaestros { get; set; }
-        public List<MaestrosvSubModulosDto> MaestrosvSubsModulos { get; set; }
+
     }
 }

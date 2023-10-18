@@ -13,10 +13,15 @@ namespace Infrastructura.Data.Configuration
         public void Configure(EntityTypeBuilder<EstadoNotificacion> builder)
         {
             builder.ToTable("EstadoNotificacion");
-            builder.Property(t=>t.Id);
-            builder.HasKey(e=>e.Id);
+            builder.Property(t => t.Id);
+            builder.HasKey(e => e.Id);
 
-            builder.Property(o=>o.NombreEstado)
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
+            builder.Property(o => o.NombreEstado)
             .HasMaxLength(50);
         }
     }

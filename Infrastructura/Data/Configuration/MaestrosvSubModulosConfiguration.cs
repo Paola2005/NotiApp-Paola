@@ -13,16 +13,21 @@ namespace Infrastructura.Data.Configuration
         public void Configure(EntityTypeBuilder<MaestrosvSubModulos> builder)
         {
             builder.ToTable("MaestrosvSubModulos");
-            builder.HasKey(g=>g.Id);
-            builder.Property(g=>g.Id);
+            builder.HasKey(g => g.Id);
+            builder.Property(g => g.Id);
 
-            builder.HasOne(l=>l.ModuloMaestros)
-            .WithMany(l=>l.MaestrosvSubsModulos)
-            .HasForeignKey(l=>l.IdMaestro);
+            builder.HasOne(l => l.ModuloMaestros)
+            .WithMany(l => l.MaestrosvSubsModulos)
+            .HasForeignKey(l => l.IdMaestro);
 
-            builder.HasOne(i=>i.SubsModulos)
-            .WithMany(i=>i.MaestrosvSubsModulos)
-            .HasForeignKey(i=>i.IdSubModulo);
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
+            builder.HasOne(i => i.SubsModulos)
+            .WithMany(i => i.MaestrosvSubsModulos)
+            .HasForeignKey(i => i.IdSubModulo);
         }
     }
 }

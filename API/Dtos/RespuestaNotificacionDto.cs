@@ -11,7 +11,5 @@ namespace API.Dtos
         public string NombreTipo { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
-        public List<ModuloNotificacionDto> ModulosNotificaciones{get; set;}
-        public List<BlockChainDto> BlockChains{get; set;}
     }
 }

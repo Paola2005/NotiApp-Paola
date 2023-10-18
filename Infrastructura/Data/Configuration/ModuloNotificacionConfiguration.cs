@@ -47,6 +47,11 @@ namespace Infrastructura.Data.Configuration
             builder.Property(y=>y.AsuntoNotificacion)
             .HasMaxLength(80);
 
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
 
         }
     }

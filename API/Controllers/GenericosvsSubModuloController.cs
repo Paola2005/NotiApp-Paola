@@ -61,7 +61,39 @@ namespace API.Controllers
             genericosDto.Id = genericosSubModulo.Id;
             return CreatedAtAction(nameof(Post), new { id = genericosDto.Id }, genericosDto);
         }
+        
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<GenericosvSubModulosDto>> Put(int id, [FromBody] GenericosvSubModulosDto genericosDto)
+        {
+            if (genericosDto == null)
+                return NotFound();
+            var genericosSubModulo = _mapper.Map<GenericosvsSubModulos>(genericosDto);
+            if (genericosSubModulo.FechaModificacion == DateTime.MinValue)
+            {
+                genericosSubModulo.FechaModificacion = DateTime.Now;
+            }
+            _unitOfWork.GenericossvSubsModulos.Update(genericosSubModulo);
+            await _unitOfWork.SaveAsync();
+            return genericosDto;
+        }
 
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var genericosSubModulo  = await _unitOfWork.GenericossvSubsModulos.GetByIdAsync(id);
+            if (genericosSubModulo == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.GenericossvSubsModulos.Remove(genericosSubModulo);
+            await _unitOfWork.SaveAsync();
+            return NoContent();
+        }
 
     }
 }

@@ -15,6 +15,11 @@ namespace Infrastructura.Data.Configuration
             builder.ToTable("Radicado");
             builder.HasKey(n=>n.Id);
             builder.Property(n=>n.Id);
+            
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
         }
     }
 }

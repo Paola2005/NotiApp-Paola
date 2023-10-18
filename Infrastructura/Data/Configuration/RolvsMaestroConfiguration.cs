@@ -24,6 +24,11 @@ namespace Infrastructura.Data.Configuration
             .WithMany(p=>p.RolsvsMaestros)
             .HasForeignKey(p=>p.IdMaestro);
 
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
 
 
         }

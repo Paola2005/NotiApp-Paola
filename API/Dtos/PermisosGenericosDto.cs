@@ -11,6 +11,5 @@ namespace API.Dtos
         public string NombrePermiso { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
-        public List<GenericosvSubModulosDto>GenericossvSubsModulos{get; set;}
     }
 }

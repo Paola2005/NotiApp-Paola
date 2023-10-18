@@ -20,6 +20,11 @@ namespace Infrastructura.Data.Configuration
             .WithMany(o=>o.GenericossvSubsModulos)
             .HasForeignKey(o=>o.IdGenericos);
 
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
             builder.HasOne(p=>p.Roles)
             .WithMany(p=>p.GenericossvSubsModulos)
             .HasForeignKey(p=>p.IdRol);

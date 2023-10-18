@@ -12,5 +12,7 @@ namespace API.Dtos
         public DateTime FechaModificacion { get; set; }  
         public string HashGenerado { get; set; }
 
+
+
     }
 }

@@ -15,6 +15,11 @@ namespace Infrastructura.Data.Configuration
             builder.ToTable("TipoRequerimiento");
             builder.HasKey(u=>u.Id);
             builder.Property(u=>u.Id);
+            
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
 
             builder.Property(f=>f.NombreRequerimiento)
             .HasMaxLength(80);

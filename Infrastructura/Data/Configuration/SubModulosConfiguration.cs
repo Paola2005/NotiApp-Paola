@@ -16,6 +16,11 @@ namespace Infrastructura.Data.Configuration
             builder.HasKey(n=>n.Id);
             builder.Property(w=>w.Id);
 
+            builder.Property(w => w.FechaCreacion)
+            .HasColumnType("DateTime");
+            builder.Property(w => w.FechaModificacion)
+            .HasColumnType("DateTime");
+
             builder.Property(i=>i.NombreSubModulo)
             .HasMaxLength(80);
         }
