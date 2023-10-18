@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class TipoNotificacionController:BaseController
+    public class TipoNotificacionController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -44,38 +44,52 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult<TipoNotificacionDto>> Post(TipoNotificacionDto tipoNotificacionDto)
         {
-            var tiposNotificaciones = _mapper.Map<TipoNotificacion>(tipoNotificacionDto);
-            if (tiposNotificaciones.FechaCreacion == DateTime.MinValue)
+            var tipoNotificacion = _mapper.Map<TipoNotificacion>(tipoNotificacionDto);
+            if (tipoNotificacion.FechaCreacion == DateTime.MinValue)
             {
-                tiposNotificaciones.FechaCreacion = DateTime.Now;
+                tipoNotificacion.FechaCreacion = DateTime.Now;
             }
-            _unitOfWork.TiposNotificaciones.Add(tiposNotificaciones);
+            _unitOfWork.TiposNotificaciones.Add(tipoNotificacion);
             await _unitOfWork.SaveAsync();
-            if (tiposNotificaciones == null)
+            if (tipoNotificacion == null)
             {
                 return BadRequest();
             }
-            tipoNotificacionDto.Id = tiposNotificaciones.Id;
-            return CreatedAtAction(nameof(Post), new { id = tipoNotificacionDto.Id }, tipoNotificacionDto);
+            var dato = CreatedAtAction(nameof(Post), new { id = tipoNotificacionDto.Id }, tipoNotificacionDto);
+            var retorno = await _unitOfWork.TiposNotificaciones.GetByIdAsync(tipoNotificacion.Id);
+            return _mapper.Map<TipoNotificacionDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<TipoNotificacionDto>> Put(int id, [FromBody] TipoNotificacionDto tipoNotificacionDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<FormatoDto>> Put(int id, FormatoDto formatoDto)
         {
-            if (tipoNotificacionDto == null)
-                return NotFound();
-            var tiposNotificaciones = _mapper.Map<TipoNotificacion>(tipoNotificacionDto);
-            if (tiposNotificaciones.FechaModificacion == DateTime.MinValue)
+            if (formatoDto.FechaModificacion == DateTime.MinValue)
             {
-                tiposNotificaciones.FechaModificacion = DateTime.Now;
+                formatoDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.TiposNotificaciones.Update(tiposNotificaciones);
+            if (formatoDto.Id == 0)
+            {
+                formatoDto.Id = id;
+            }
+            if (formatoDto.Id != id)
+            {
+                return NotFound();
+            }
+            if (formatoDto == null)
+            {
+                return BadRequest();
+            }
+            var formato = _mapper.Map<Formato>(formatoDto);
+            _unitOfWork.Formatos.Update(formato);
             await _unitOfWork.SaveAsync();
-            return tipoNotificacionDto;
+            return _mapper.Map<FormatoDto>(formatoDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

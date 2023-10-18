@@ -44,38 +44,45 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Auditoria>> Post(AuditoriaDto auditoriaDto)
-        {
+
+        public async Task<ActionResult<AuditoriaDto>> Post(AuditoriaDto auditoriaDto){
             var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
-            if (auditoria.FechaCreacion == DateTime.MinValue)
-            {
+
+            if (auditoria.FechaCreacion == DateTime.MinValue){
                 auditoria.FechaCreacion = DateTime.Now;
             }
             _unitOfWork.Auditorias.Add(auditoria);
             await _unitOfWork.SaveAsync();
-            if (auditoria == null)
-            {
+            if (auditoria == null){
                 return BadRequest();
             }
             auditoriaDto.Id = auditoria.Id;
-            return CreatedAtAction(nameof(Post), new { id = auditoriaDto.Id }, auditoriaDto);
+            var retorno = CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+            var retorno2 = await _unitOfWork.Auditorias.GetByIdAsync(auditoriaDto.Id);
+            return _mapper.Map<AuditoriaDto>(retorno2);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDtoDto)
-        {
-            if (auditoriaDtoDto == null)
-                return NotFound();
-            var auditorias = _mapper.Map<Auditoria>(auditoriaDtoDto);
-            if (auditorias.FechaModificacion == DateTime.MinValue)
-            {
-                auditorias.FechaModificacion = DateTime.Now;
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<AuditoriaDto>> Put(int id, AuditoriaDto auditoriaDto){
+            if (auditoriaDto.FechaModificacion == DateTime.MinValue){
+                auditoriaDto.FechaModificacion = DateTime.Now;
             }
+            if (auditoriaDto.Id == 0){
+                auditoriaDto.Id = id;
+            }
+            if (auditoriaDto.Id != id){
+                return BadRequest();
+            }
+            if (auditoriaDto == null){
+                return NotFound();
+            }
+            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
             _unitOfWork.Auditorias.Update(auditorias);
             await _unitOfWork.SaveAsync();
-            return auditoriaDtoDto;
+            return _mapper.Map<AuditoriaDto>(auditorias);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

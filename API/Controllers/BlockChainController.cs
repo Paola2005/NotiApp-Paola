@@ -44,38 +44,44 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BlockChain>> Post(BlockChainDto blockChainDto)
-        {
+
+        public async Task<ActionResult<BlockChainDto>> Post(BlockChainDto blockChainDto){
             var blockChain = _mapper.Map<BlockChain>(blockChainDto);
-            if (blockChain.FechaCreacion == DateTime.MinValue)
-            {
+            if (blockChain.FechaCreacion == DateTime.MinValue){
                 blockChain.FechaCreacion = DateTime.Now;
             }
             _unitOfWork.BlockChains.Add(blockChain);
-            await _unitOfWork.SaveAsync();
-            if (blockChain == null)
-            {
+            await  _unitOfWork.SaveAsync();
+            if (blockChain == null){
                 return BadRequest();
             }
-            blockChainDto.Id = blockChain.Id;
-            return CreatedAtAction(nameof(Post), new { id = blockChainDto.Id }, blockChainDto);
+            var dato = CreatedAtAction(nameof(Post), new {id = blockChainDto.Id}, blockChainDto);
+            var retorno = await _unitOfWork.BlockChains.GetByIdAsync(blockChain.Id);
+            return _mapper.Map<BlockChainDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BlockChainDto>> Put(int id, [FromBody] BlockChainDto blockChainDtoDto)
-        {
-            if (blockChainDtoDto == null)
-                return NotFound();
-            var blockChain = _mapper.Map<BlockChain>(blockChainDtoDto);
-            if (blockChain.FechaModificacion == DateTime.MinValue)
-            {
-                blockChain.FechaModificacion = DateTime.Now;
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<BlockChainDto>> Put(int id, BlockChainDto blockChainDto){
+            if (blockChainDto.FechaModificacion == DateTime.MinValue){
+                blockChainDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.BlockChains.Update(blockChain);
+            if (blockChainDto.Id == 0){
+                blockChainDto.Id = id;
+            }
+            if (blockChainDto.Id != id){
+                return NotFound();
+            }
+            if (blockChainDto == null){
+                return BadRequest();
+            }
+            var blockChains = _mapper.Map<BlockChain>(blockChainDto);
+            _unitOfWork.BlockChains.Update(blockChains);
             await _unitOfWork.SaveAsync();
-            return blockChainDtoDto;
+            return _mapper.Map<BlockChainDto>(blockChainDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

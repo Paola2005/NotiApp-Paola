@@ -44,38 +44,52 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult<SubModulosDto>> Post(SubModulosDto subModulosDto)
         {
-            var subsModulos = _mapper.Map<SubModulos>(subModulosDto);
-            if (subsModulos.FechaCreacion == DateTime.MinValue)
+            var subModulos = _mapper.Map<SubModulos>(subModulosDto);
+            if (subModulos.FechaCreacion == DateTime.MinValue)
             {
-                subsModulos.FechaCreacion = DateTime.Now;
+                subModulos.FechaCreacion = DateTime.Now;
             }
-            _unitOfWork.SubsModulos.Add(subsModulos);
+            _unitOfWork.SubsModulos.Add(subModulos);
             await _unitOfWork.SaveAsync();
-            if (subsModulos == null)
+            if (subModulos == null)
             {
                 return BadRequest();
             }
-            subModulosDto.Id = subsModulos.Id;
-            return CreatedAtAction(nameof(Post), new { id = subModulosDto.Id }, subModulosDto);
+            var dato = CreatedAtAction(nameof(Post), new { id = subModulosDto.Id }, subModulosDto);
+            var retorno = await _unitOfWork.SubsModulos.GetByIdAsync(subModulos.Id);
+            return _mapper.Map<SubModulosDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<SubModulosDto>> Put(int id, [FromBody] SubModulosDto subModulosDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<SubModulosDto>> Put(int id, SubModulosDto subModulosDto)
         {
-            if (subModulosDto == null)
-                return NotFound();
-            var subsModulos = _mapper.Map<SubModulos>(subModulosDto);
-            if (subsModulos.FechaModificacion == DateTime.MinValue)
+            if (subModulosDto.FechaModificacion == DateTime.MinValue)
             {
-                subsModulos.FechaModificacion = DateTime.Now;
+                subModulosDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.SubsModulos.Update(subsModulos);
+            if (subModulosDto.Id == 0)
+            {
+                subModulosDto.Id = id;
+            }
+            if (subModulosDto.Id != id)
+            {
+                return NotFound();
+            }
+            if (subModulosDto == null)
+            {
+                return BadRequest();
+            }
+            var subModulos = _mapper.Map<SubModulos>(subModulosDto);
+            _unitOfWork.SubsModulos.Update(subModulos);
             await _unitOfWork.SaveAsync();
-            return subModulosDto;
+            return _mapper.Map<SubModulosDto>(subModulosDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

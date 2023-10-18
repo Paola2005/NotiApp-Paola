@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class RolController:BaseController
+    public class RolController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -44,38 +44,52 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult<RolDto>> Post(RolDto rolDto)
         {
-            var roles = _mapper.Map<Rol>(rolDto);
-            if (roles.FechaCreacion == DateTime.MinValue)
+            var rol = _mapper.Map<Rol>(rolDto);
+            if (rol.FechaCreacion == DateTime.MinValue)
             {
-                roles.FechaCreacion = DateTime.Now;
+                rol.FechaCreacion = DateTime.Now;
             }
-            _unitOfWork.Roles.Add(roles);
+            _unitOfWork.Roles.Add(rol);
             await _unitOfWork.SaveAsync();
-            if (roles == null)
+            if (rol == null)
             {
                 return BadRequest();
             }
-            rolDto.Id = roles.Id;
-            return CreatedAtAction(nameof(Post), new { id = rolDto.Id }, rolDto);
+            var dato = CreatedAtAction(nameof(Post), new { id = rolDto.Id }, rolDto);
+            var retorno = await _unitOfWork.Roles.GetByIdAsync(rol.Id);
+            return _mapper.Map<RolDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<RolDto>> Put(int id, [FromBody] RolDto rolDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<RolDto>> Put(int id, RolDto rolDto)
         {
-            if (rolDto == null)
-                return NotFound();
-            var roles = _mapper.Map<Rol>(rolDto);
-            if (roles.FechaModificacion == DateTime.MinValue)
+            if (rolDto.FechaModificacion == DateTime.MinValue)
             {
-                roles.FechaModificacion = DateTime.Now;
+                rolDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.Roles.Update(roles);
+            if (rolDto.Id == 0)
+            {
+                rolDto.Id = id;
+            }
+            if (rolDto.Id != id)
+            {
+                return NotFound();
+            }
+            if (rolDto == null)
+            {
+                return BadRequest();
+            }
+            var rol = _mapper.Map<Rol>(rolDto);
+            _unitOfWork.Roles.Update(rol);
             await _unitOfWork.SaveAsync();
-            return rolDto;
+            return _mapper.Map<RolDto>(rolDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

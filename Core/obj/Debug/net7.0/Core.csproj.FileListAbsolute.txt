@@ -20,3 +20,14 @@ C:\Users\APM02-44\NotiApp-Paola\Core\obj\Debug\net7.0\Core.dll
 C:\Users\APM02-44\NotiApp-Paola\Core\obj\Debug\net7.0\refint\Core.dll
 C:\Users\APM02-44\NotiApp-Paola\Core\obj\Debug\net7.0\Core.pdb
 C:\Users\APM02-44\NotiApp-Paola\Core\obj\Debug\net7.0\ref\Core.dll
+C:\Users\campus\NotiApp-Paola\Core\bin\Debug\net7.0\Core.deps.json
+C:\Users\campus\NotiApp-Paola\Core\bin\Debug\net7.0\Core.dll
+C:\Users\campus\NotiApp-Paola\Core\bin\Debug\net7.0\Core.pdb
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\Core.AssemblyInfoInputs.cache
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\Core.AssemblyInfo.cs
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\Core.csproj.CoreCompileInputs.cache
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\Core.dll
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\refint\Core.dll
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\Core.pdb
+C:\Users\campus\NotiApp-Paola\Core\obj\Debug\net7.0\ref\Core.dll

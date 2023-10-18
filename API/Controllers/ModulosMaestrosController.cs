@@ -15,7 +15,7 @@ namespace API.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ModulosMaestrosController(IUnitOfWork unitOfWork,IMapper mapper)
+        public ModulosMaestrosController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -44,38 +44,52 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ModulosMaestrosDto>> Post(ModulosMaestrosDto moduloMaestrosDto)
+
+        public async Task<ActionResult<ModulosMaestrosDto>> Post(ModulosMaestrosDto modulosMaestrosDto)
         {
-            var moduloMaestros = _mapper.Map<ModulosMaestros>(moduloMaestrosDto);
-            if (moduloMaestros.FechaCreacion == DateTime.MinValue)
+            var modulosMaestros = _mapper.Map<ModulosMaestros>(modulosMaestrosDto);
+            if (modulosMaestros.FechaCreacion == DateTime.MinValue)
             {
-                moduloMaestros.FechaCreacion = DateTime.Now;
+                modulosMaestros.FechaCreacion = DateTime.Now;
             }
-            _unitOfWork.ModuloMaestros.Add(moduloMaestros);
+            _unitOfWork.ModuloMaestros.Add(modulosMaestros);
             await _unitOfWork.SaveAsync();
-            if (moduloMaestros == null)
+            if (modulosMaestros == null)
             {
                 return BadRequest();
             }
-            moduloMaestrosDto.Id = moduloMaestros.Id;
-            return CreatedAtAction(nameof(Post), new { id = moduloMaestrosDto.Id }, moduloMaestrosDto);
+            var dato = CreatedAtAction(nameof(Post), new { id = modulosMaestrosDto.Id }, modulosMaestrosDto);
+            var retorno = await _unitOfWork.ModuloMaestros.GetByIdAsync(modulosMaestros.Id);
+            return _mapper.Map<ModulosMaestrosDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ModulosMaestrosDto>> Put(int id, [FromBody] ModulosMaestrosDto moduloMaestrosDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<ModulosMaestrosDto>> Put(int id, ModulosMaestrosDto modulosMaestrosDto)
         {
-            if (moduloMaestrosDto == null)
-                return NotFound();
-            var moduloMaestros = _mapper.Map<ModulosMaestros>(moduloMaestrosDto);
-            if (moduloMaestros.FechaModificacion == DateTime.MinValue)
+            if (modulosMaestrosDto.FechaModificacion == DateTime.MinValue)
             {
-                moduloMaestros.FechaModificacion = DateTime.Now;
+                modulosMaestrosDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.ModuloMaestros.Update(moduloMaestros);
+            if (modulosMaestrosDto.Id == 0)
+            {
+                modulosMaestrosDto.Id = id;
+            }
+            if (modulosMaestrosDto.Id != id)
+            {
+                return NotFound();
+            }
+            if (modulosMaestrosDto == null)
+            {
+                return BadRequest();
+            }
+            var modulosMaestros = _mapper.Map<ModulosMaestros>(modulosMaestrosDto);
+            _unitOfWork.ModuloMaestros.Update(modulosMaestros);
             await _unitOfWork.SaveAsync();
-            return moduloMaestrosDto;
+            return _mapper.Map<ModulosMaestrosDto>(modulosMaestrosDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

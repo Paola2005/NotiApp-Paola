@@ -44,38 +44,52 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult<RespuestaNotificacionDto>> Post(RespuestaNotificacionDto respuestaNotificacionDto)
         {
-            var respuestasNotificaciones = _mapper.Map<RespuestaNotificacion>(respuestaNotificacionDto);
-            if (respuestasNotificaciones.FechaCreacion == DateTime.MinValue)
+            var respuestaNotificacion = _mapper.Map<RespuestaNotificacion>(respuestaNotificacionDto);
+            if (respuestaNotificacion.FechaCreacion == DateTime.MinValue)
             {
-                respuestasNotificaciones.FechaCreacion = DateTime.Now;
+                respuestaNotificacion.FechaCreacion = DateTime.Now;
             }
-            _unitOfWork.RespuestasNotificaciones.Add(respuestasNotificaciones);
+            _unitOfWork.RespuestasNotificaciones.Add(respuestaNotificacion);
             await _unitOfWork.SaveAsync();
-            if (respuestasNotificaciones == null)
+            if (respuestaNotificacion == null)
             {
                 return BadRequest();
             }
-            respuestaNotificacionDto.Id = respuestasNotificaciones.Id;
-            return CreatedAtAction(nameof(Post), new { id = respuestaNotificacionDto.Id }, respuestaNotificacionDto);
+            var dato = CreatedAtAction(nameof(Post), new { id = respuestaNotificacionDto.Id }, respuestaNotificacionDto);
+            var retorno = await _unitOfWork.RespuestasNotificaciones.GetByIdAsync(respuestaNotificacion.Id);
+            return _mapper.Map<RespuestaNotificacionDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<RespuestaNotificacionDto>> Put(int id, [FromBody] RespuestaNotificacionDto respuestaNotificacionDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<RespuestaNotificacionDto>> Put(int id, RespuestaNotificacionDto respuestaNotificacionDto)
         {
-            if (respuestaNotificacionDto == null)
-                return NotFound();
-            var respuestasNotificaciones = _mapper.Map<RespuestaNotificacion>(respuestaNotificacionDto);
-            if (respuestasNotificaciones.FechaModificacion == DateTime.MinValue)
+            if (respuestaNotificacionDto.FechaModificacion == DateTime.MinValue)
             {
-                respuestasNotificaciones.FechaModificacion = DateTime.Now;
+                respuestaNotificacionDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.RespuestasNotificaciones.Update(respuestasNotificaciones);
+            if (respuestaNotificacionDto.Id == 0)
+            {
+                respuestaNotificacionDto.Id = id;
+            }
+            if (respuestaNotificacionDto.Id != id)
+            {
+                return NotFound();
+            }
+            if (respuestaNotificacionDto == null)
+            {
+                return BadRequest();
+            }
+            var respuestaNotificacion = _mapper.Map<RespuestaNotificacion>(respuestaNotificacionDto);
+            _unitOfWork.RespuestasNotificaciones.Update(respuestaNotificacion);
             await _unitOfWork.SaveAsync();
-            return respuestaNotificacionDto;
+            return _mapper.Map<RespuestaNotificacionDto>(respuestaNotificacionDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

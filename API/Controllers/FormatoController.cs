@@ -41,41 +41,56 @@ namespace API.Controllers
             }
             return _mapper.Map<FormatoDto>(formatos);
         }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult<FormatoDto>> Post(FormatoDto formatoDto)
         {
-            var formatos = _mapper.Map<Formato>(formatoDto);
-            if (formatos.FechaCreacion == DateTime.MinValue)
+            var formato = _mapper.Map<Formato>(formatoDto);
+            if (formato.FechaCreacion == DateTime.MinValue)
             {
-                formatos.FechaCreacion = DateTime.Now;
+                formato.FechaCreacion = DateTime.Now;
             }
-            _unitOfWork.Formatos.Add(formatos);
+            _unitOfWork.Formatos.Add(formato);
             await _unitOfWork.SaveAsync();
-            if (formatos == null)
+            if (formato == null)
             {
                 return BadRequest();
             }
-            formatoDto.Id = formatos.Id;
-            return CreatedAtAction(nameof(Post), new { id = formatoDto.Id }, formatoDto);
+            var dato = CreatedAtAction(nameof(Post), new { id = formatoDto.Id }, formatoDto);
+            var retorno = await _unitOfWork.Formatos.GetByIdAsync(formato.Id);
+            return _mapper.Map<FormatoDto>(retorno);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<FormatoDto>> Put(int id, [FromBody] FormatoDto formatoDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<FormatoDto>> Put(int id, FormatoDto formatoDto)
         {
-            if (formatoDto == null)
-                return NotFound();
-            var formatos = _mapper.Map<Formato>(formatoDto);
-            if (formatos.FechaModificacion == DateTime.MinValue)
+            if (formatoDto.FechaModificacion == DateTime.MinValue)
             {
-                formatos.FechaModificacion = DateTime.Now;
+                formatoDto.FechaModificacion = DateTime.Now;
             }
-            _unitOfWork.Formatos.Update(formatos);
+            if (formatoDto.Id == 0)
+            {
+                formatoDto.Id = id;
+            }
+            if (formatoDto.Id != id)
+            {
+                return NotFound();
+            }
+            if (formatoDto == null)
+            {
+                return BadRequest();
+            }
+            var formato = _mapper.Map<Formato>(formatoDto);
+            _unitOfWork.Formatos.Update(formato);
             await _unitOfWork.SaveAsync();
-            return formatoDto;
+            return _mapper.Map<FormatoDto>(formatoDto);
         }
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
