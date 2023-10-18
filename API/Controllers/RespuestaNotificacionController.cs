@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class RespuestaNotificacionContoller : BaseController
+    public class RespuestaNotificacionController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public RespuestaNotificacionContoller(IUnitOfWork unitOfWork, IMapper mapper)
+        public RespuestaNotificacionController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
