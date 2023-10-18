@@ -11,6 +11,7 @@ namespace API.Dtos
         public string NombreRequerimiento { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
+        public List<ModuloNotificacionDto> ModuloNoficaciones {get; set;}
 
     }
 }

@@ -22,6 +22,7 @@ namespace Infrastructura.Data.Configuration
             .HasColumnType("DateTime");
 
             builder.Property(u => u.NombreFormato)
+            .IsRequired()
             .HasMaxLength(50);
 
 

@@ -91,7 +91,7 @@ namespace API.Controllers
             await _unitOfWork.SaveAsync();
             return _mapper.Map<RespuestaNotificacionDto>(respuestaNotificacionDto);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)

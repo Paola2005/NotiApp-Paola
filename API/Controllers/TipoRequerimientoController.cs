@@ -68,30 +68,30 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public async Task<ActionResult<FormatoDto>> Put(int id, FormatoDto formatoDto)
+        public async Task<ActionResult<TipoRequerimientoDto>> Put(int id, TipoRequerimientoDto tipoRequerimientoDto)
         {
-            if (formatoDto.FechaModificacion == DateTime.MinValue)
+            if (tipoRequerimientoDto.FechaModificacion == DateTime.MinValue)
             {
-                formatoDto.FechaModificacion = DateTime.Now;
+                tipoRequerimientoDto.FechaModificacion = DateTime.Now;
             }
-            if (formatoDto.Id == 0)
+            if (tipoRequerimientoDto.Id == 0)
             {
-                formatoDto.Id = id;
+                tipoRequerimientoDto.Id = id;
             }
-            if (formatoDto.Id != id)
+            if (tipoRequerimientoDto.Id != id)
             {
                 return NotFound();
             }
-            if (formatoDto == null)
+            if (tipoRequerimientoDto == null)
             {
                 return BadRequest();
             }
-            var formato = _mapper.Map<Formato>(formatoDto);
-            _unitOfWork.Formatos.Update(formato);
+            var tipoRequerimiento = _mapper.Map<TipoRequerimiento>(tipoRequerimientoDto);
+            _unitOfWork.TiposRequerimientos.Update(tipoRequerimiento);
             await _unitOfWork.SaveAsync();
-            return _mapper.Map<FormatoDto>(formatoDto);
+            return _mapper.Map<TipoRequerimientoDto>(tipoRequerimientoDto);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)

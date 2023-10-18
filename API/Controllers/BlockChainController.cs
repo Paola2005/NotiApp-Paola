@@ -51,10 +51,11 @@ namespace API.Controllers
                 blockChain.FechaCreacion = DateTime.Now;
             }
             _unitOfWork.BlockChains.Add(blockChain);
-            await  _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync();
             if (blockChain == null){
                 return BadRequest();
             }
+            blockChainDto.Id=blockChain.Id;
             var dato = CreatedAtAction(nameof(Post), new {id = blockChainDto.Id}, blockChainDto);
             var retorno = await _unitOfWork.BlockChains.GetByIdAsync(blockChain.Id);
             return _mapper.Map<BlockChainDto>(retorno);
@@ -83,7 +84,7 @@ namespace API.Controllers
             await _unitOfWork.SaveAsync();
             return _mapper.Map<BlockChainDto>(blockChainDto);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)

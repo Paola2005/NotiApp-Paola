@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entities;
 
 namespace API.Dtos
 {
@@ -12,6 +13,8 @@ namespace API.Dtos
         public string MaestrosvSubModulos { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
+        public List<RolvsMaestro> RolvsMaestros {get; set;}
+        public List<MaestrosvSubModulos> MaestrosvsSubModulos {get; set;}
 
     }
 }
