@@ -8,6 +8,7 @@ namespace Core.Interfaces
 {
     public interface IRespuestaNotificacion:IGenericRepository<RespuestaNotificacion>
     {
-        Task<List<BlockChain>> GetBlockChainsByHiloRespuestaIdAsync(int hilorespuestaId);
+        Task<List<BlockChain>> GetBlockChainsAsync(int HiloResId);
+        Task<List<ModuloNotificacion>> GetModuloNotificaciones(int HiloResId2);
     }
 }

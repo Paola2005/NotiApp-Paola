@@ -8,6 +8,6 @@ namespace Core.Interfaces
 {
     public interface IMaestrosvSubModulos:IGenericRepository<MaestrosvSubModulos>
     {
-        Task<List<GenericosvsSubModulos>> MaestorsId(int genericoId);
+        
     }
 }

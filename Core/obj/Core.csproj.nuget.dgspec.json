@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\campus\\NotiApp-Paola\\Core\\Core.csproj": {}
+    "C:\\Users\\APM02-44\\NotiApp-Paola\\Core\\Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\campus\\NotiApp-Paola\\Core\\Core.csproj": {
+    "C:\\Users\\APM02-44\\NotiApp-Paola\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\campus\\NotiApp-Paola\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\APM02-44\\NotiApp-Paola\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\campus\\NotiApp-Paola\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\campus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\campus\\NotiApp-Paola\\Core\\obj\\",
+        "projectPath": "C:\\Users\\APM02-44\\NotiApp-Paola\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\APM02-44\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\APM02-44\\NotiApp-Paola\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\campus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\APM02-44\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

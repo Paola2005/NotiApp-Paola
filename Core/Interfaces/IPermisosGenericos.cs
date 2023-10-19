@@ -8,6 +8,6 @@ namespace Core.Interfaces
 {
     public interface IPermisosGenericos:IGenericRepository<PermisosGenericos>
     {
-        Task<List<GenericosvsSubModulos>> PermisosId(int genericopermisoId);
+        
     }
 }

@@ -8,6 +8,6 @@ namespace Core.Interfaces
 {
     public interface IRol:IGenericRepository<Rol>
     {
-        Task<List<GenericosvsSubModulos>> RolId(int rolId);
+        Task<List<RolvsMaestro>> RolId(int rolId);
     }
 }

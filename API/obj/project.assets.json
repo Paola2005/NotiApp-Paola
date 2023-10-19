@@ -2854,19 +2854,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\campus\\.nuget\\packages\\": {}
+    "C:\\Users\\APM02-44\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\campus\\NotiApp-Paola\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\APM02-44\\NotiApp-Paola\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\campus\\NotiApp-Paola\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\campus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\campus\\NotiApp-Paola\\API\\obj\\",
+      "projectPath": "C:\\Users\\APM02-44\\NotiApp-Paola\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\APM02-44\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\APM02-44\\NotiApp-Paola\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\campus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\APM02-44\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -2878,8 +2878,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\campus\\NotiApp-Paola\\Infrastructura\\Infrastructura.csproj": {
-              "projectPath": "C:\\Users\\campus\\NotiApp-Paola\\Infrastructura\\Infrastructura.csproj"
+            "C:\\Users\\APM02-44\\NotiApp-Paola\\Infrastructura\\Infrastructura.csproj": {
+              "projectPath": "C:\\Users\\APM02-44\\NotiApp-Paola\\Infrastructura\\Infrastructura.csproj"
             }
           }
         }

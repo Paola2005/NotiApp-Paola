@@ -20,7 +20,10 @@ namespace Infrastructura.Repository
         }
         public override async Task<IEnumerable<TipoNotificacion>> GetAllAsync()
         {
-            return await _context.TiposNotificaciones.Include(p => p.BlockChains).ToListAsync();
+            return await _context.TiposNotificaciones
+            .Include(p => p.BlockChains)
+            .Include(m => m.ModulosNotificaciones)
+            .ToListAsync();
         }
 
         public async Task<List<BlockChain>> GetBlockChainsByNotificacionIdAsync(int notificacionId)
@@ -29,11 +32,15 @@ namespace Infrastructura.Repository
                 .Where(d => d.IdNotificacion == notificacionId)
                 .ToListAsync();
         }
+        public async Task<List<ModuloNotificacion>> GetModuloNotificaciones(int TiponotiId2){
+            return await _context.ModulosNotificaciones.Where(p => p.IdTipoNotificacion == TiponotiId2).ToListAsync();
+        }
 
         public async Task<TipoNotificacion> GetByIdAsync(int id)
         {
             return await _context.TiposNotificaciones
                 .Include(p => p.BlockChains)
+                .Include(m => m.ModulosNotificaciones)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
     }

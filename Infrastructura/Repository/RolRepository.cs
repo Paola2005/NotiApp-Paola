@@ -20,12 +20,12 @@ namespace Infrastructura.Repository
         }
         public override async Task<IEnumerable<Rol>> GetAllAsync()
         {
-            return await _context.Roles.Include(p => p.GenericossvSubsModulos).ToListAsync();
+            return await _context.Roles.Include(p => p.RolsvsMaestros).ToListAsync();
         }
 
-        public async Task<List<GenericosvsSubModulos>> RolId(int rolId)
+        public async Task<List<RolvsMaestro>> RolId(int rolId)
         {
-            return await _context.GenericossvSubsModulos
+            return await _context.RolsvsMaestros
                 .Where(d => d.IdRol == rolId)
                 .ToListAsync();
         }
@@ -33,7 +33,7 @@ namespace Infrastructura.Repository
         public async Task<Rol> GetByIdAsync(int id)
         {
             return await _context.Roles
-                .Include(p => p.GenericossvSubsModulos)
+                .Include(p => p.RolsvsMaestros)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
