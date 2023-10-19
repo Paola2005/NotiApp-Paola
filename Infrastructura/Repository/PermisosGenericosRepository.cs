@@ -6,6 +6,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Infrastructura.Data;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructura.Repository
 {
@@ -16,6 +17,24 @@ namespace Infrastructura.Repository
         public PermisosGenericosRepository(NotiContext context) : base(context)
         {
             _context = context;
+        }
+        public override async Task<IEnumerable<PermisosGenericos>> GetAllAsync()
+        {
+            return await _context.PermisoGenerico.Include(p => p.GenericossvSubsModulos).ToListAsync();
+        }
+
+        public async Task<List<GenericosvsSubModulos>> PermisosId(int genericopermisoId)
+        {
+            return await _context.GenericossvSubsModulos
+                .Where(d => d.IdGenericos == genericopermisoId)
+                .ToListAsync();
+        }
+
+        public async Task<PermisosGenericos> GetByIdAsync(int id)
+        {
+            return await _context.PermisoGenerico
+                .Include(p => p.GenericossvSubsModulos)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

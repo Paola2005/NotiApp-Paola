@@ -8,6 +8,6 @@ namespace Core.Interfaces
 {
     public interface ITipoNotificacion:IGenericRepository<TipoNotificacion>
     {
-        
+        Task<List<BlockChain>> GetBlockChainsByNotificacionIdAsync(int notificacionId);
     }
 }

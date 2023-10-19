@@ -6,6 +6,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Infrastructura.Data;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructura.Repository
 {
@@ -16,6 +17,24 @@ namespace Infrastructura.Repository
         public RolRepository(NotiContext context) : base(context)
         {
             _context = context;
+        }
+        public override async Task<IEnumerable<Rol>> GetAllAsync()
+        {
+            return await _context.Roles.Include(p => p.GenericossvSubsModulos).ToListAsync();
+        }
+
+        public async Task<List<GenericosvsSubModulos>> RolId(int rolId)
+        {
+            return await _context.GenericossvSubsModulos
+                .Where(d => d.IdRol == rolId)
+                .ToListAsync();
+        }
+
+        public async Task<Rol> GetByIdAsync(int id)
+        {
+            return await _context.Roles
+                .Include(p => p.GenericossvSubsModulos)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }
