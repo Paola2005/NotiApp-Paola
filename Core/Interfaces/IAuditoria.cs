@@ -8,6 +8,7 @@ namespace Core.Interfaces
 {
     public interface IAuditoria:IGenericRepository<Auditoria>
     {
+        Task<List<BlockChain>> GetBlockChainsByAuditoriaIdAsync(int auditoriaId);
         
     }
 }
